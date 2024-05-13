@@ -19,7 +19,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      MAIN_CLASS: ${{sbt.main_class:playground.ScalaPlayground}}
+      MAIN_CLASS: playground.ScalaPlayground
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 17
