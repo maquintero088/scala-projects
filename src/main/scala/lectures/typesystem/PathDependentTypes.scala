@@ -2,4 +2,42 @@ package lectures.typesystem
 
 object PathDependentTypes extends App {
 
+  // path-dependent types
+
+  // Outer#Inner
+  InnerTypes.o.printGeneral(InnerTypes.inner)
+  InnerTypes.oo.printGeneral(InnerTypes.inner)
+
+  /*
+    Exercise
+    DB keyed by Int or String, but maybe others
+   */
+
+  /*
+    use path-dependent types
+    abstract type members and/or type aliases
+   */
+
+
+  trait ItemLike {
+    type Key
+  }
+
+  trait Item[K] extends ItemLike {
+    type Key = K
+  }
+
+  trait IntItem extends Item[Int]
+  trait StringItem extends Item[String]
+
+  /*
+    Note: this exercise (and its solution) is only applicable to Scala 2.
+    Scala 3 considers abstract path-dependent types (aka general type projection) to be unsound:
+    https://docs.scala-lang.org/scala3/reference/dropped-features/type-projection.html
+
+    def get[ItemType <: ItemLike](key: ItemType#Key): ItemType = ???
+    get[IntItem](42) // ok
+    get[StringItem]("home") // ok
+    // get[IntItem]("scala") // not ok
+  */
 }
